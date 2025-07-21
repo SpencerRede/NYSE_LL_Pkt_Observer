@@ -4,5 +4,5 @@
 #include <vector>
 
 namespace PCAPServer {
-    void serve_packets(const std::vector<PacketData>& packets);
+    void serve_packets();
 } // namespace PCAPServer
