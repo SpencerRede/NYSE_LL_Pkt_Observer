@@ -1,10 +1,13 @@
 #include "PCAP_Server/Reader.h"
 #include <sys/socket.h>
+#include <sys/time.h>
 #include <arpa/inet.h>
 #include <thread>
 #include <chrono>
 #include <iostream>
 #include <unistd.h>
+
+using namespace std::chrono;
 
 namespace PCAPServer {
     std::string dest_add = "127.0.0.1";
@@ -22,30 +25,23 @@ namespace PCAPServer {
         dest_addr.sin_port = htons(dest_port);
         inet_pton(dest_addr.sin_family, dest_add.c_str(), &dest_addr.sin_addr);
 
-        timeval previous_ts = packets.front().timestamp;
+        timeval front_ts = packets.front().timestamp;
+        int64_t base_us = front_ts.tv_sec * 1000000LL + front_ts.tv_usec;
+
+        auto initial_tp = std::chrono::system_clock::now();
 
         for (const auto& pkt : packets) {
             std::cout << "Sending packet: " << std::to_string(pkt.timestamp.tv_sec) << "\t";
 
-            // current timestamp of packet
-            timeval pkt_ts = pkt.timestamp;
+            // calc offset to initial packet
+            int64_t pkt_us = pkt.timestamp.tv_sec * 1000000LL + pkt.timestamp.tv_usec;
+            auto target_tp = initial_tp + std::chrono::microseconds(pkt_us - base_us);
 
-            // difference in time stamps from previous packet to current
-            long sec_diff = pkt_ts.tv_sec - previous_ts.tv_sec;
-            long usec_diff = pkt_ts.tv_usec - previous_ts.tv_usec;
-            long long wait_us = sec_diff * 1000000LL + usec_diff;
-
-            // sleep for the difference in time sent in between packets
-            auto target_time = std::chrono::microseconds(wait_us);
-            std::cout << "Sleeping for " << (wait_us / 1000000.0) << "s" << std::endl;
-
-            std::this_thread::sleep_for(target_time);
+            std::cout << "Waiting until +" << std::chrono::microseconds(pkt_us - base_us).count() << "us\n";
+            std::this_thread::sleep_until(target_tp);
 
             // send the packet to the UDP socket
             ssize_t sent = sendto(sock, pkt.data.data(), pkt.data.size(), 0, (sockaddr*)&dest_addr, sizeof(dest_addr));
-
-            // set the "previous time stamp" to the current for next iteration
-            previous_ts = pkt.timestamp;
 
             if (sent < 0) perror("sendto");
         }
