@@ -177,6 +177,30 @@ src/PCAP_Server/Server.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/pcap_replay.dir/build.make CMakeFiles/pcap_replay.dir/src/PCAP_Server/Server.cpp.s
 .PHONY : src/PCAP_Server/Server.cpp.s
 
+src/PCAP_Server/shared_mutex.o: src/PCAP_Server/shared_mutex.cpp.o
+.PHONY : src/PCAP_Server/shared_mutex.o
+
+# target to build an object file
+src/PCAP_Server/shared_mutex.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pcap_replay.dir/build.make CMakeFiles/pcap_replay.dir/src/PCAP_Server/shared_mutex.cpp.o
+.PHONY : src/PCAP_Server/shared_mutex.cpp.o
+
+src/PCAP_Server/shared_mutex.i: src/PCAP_Server/shared_mutex.cpp.i
+.PHONY : src/PCAP_Server/shared_mutex.i
+
+# target to preprocess a source file
+src/PCAP_Server/shared_mutex.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pcap_replay.dir/build.make CMakeFiles/pcap_replay.dir/src/PCAP_Server/shared_mutex.cpp.i
+.PHONY : src/PCAP_Server/shared_mutex.cpp.i
+
+src/PCAP_Server/shared_mutex.s: src/PCAP_Server/shared_mutex.cpp.s
+.PHONY : src/PCAP_Server/shared_mutex.s
+
+# target to generate assembly for a file
+src/PCAP_Server/shared_mutex.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pcap_replay.dir/build.make CMakeFiles/pcap_replay.dir/src/PCAP_Server/shared_mutex.cpp.s
+.PHONY : src/PCAP_Server/shared_mutex.cpp.s
+
 src/Pkt_Observer/Ring_Buff_Forwarder.o: src/Pkt_Observer/Ring_Buff_Forwarder.cpp.o
 .PHONY : src/Pkt_Observer/Ring_Buff_Forwarder.o
 
@@ -240,6 +264,9 @@ help:
 	@echo "... src/PCAP_Server/Server.o"
 	@echo "... src/PCAP_Server/Server.i"
 	@echo "... src/PCAP_Server/Server.s"
+	@echo "... src/PCAP_Server/shared_mutex.o"
+	@echo "... src/PCAP_Server/shared_mutex.i"
+	@echo "... src/PCAP_Server/shared_mutex.s"
 	@echo "... src/Pkt_Observer/Ring_Buff_Forwarder.o"
 	@echo "... src/Pkt_Observer/Ring_Buff_Forwarder.i"
 	@echo "... src/Pkt_Observer/Ring_Buff_Forwarder.s"

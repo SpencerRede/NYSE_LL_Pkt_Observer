@@ -24,7 +24,5 @@ PCAP_Server reads a `.pcap` file containing network packets (e.g., NYSE feed cap
 - Modular testing: enabling the replacement of the network feed with test producers to validate parsing and processing logic without requiring live or replayed network traffic.
 
 TODO:
-- Change packet server to use "wait_until" the timestamp on the packet instead of "wait_for" to avoid cumulative error
 - Add logic for Add Order, Modify Order, Delete Order and Replace Order to build an order book
-- Change .pcap ingester to read a single packet at a time, loading the next packet to be sent after the previous packet is sent (use mutex boolean for signal inbetween loader / sending threads)
 

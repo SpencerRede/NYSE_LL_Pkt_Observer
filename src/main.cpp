@@ -18,8 +18,10 @@ int main(int argc, char* argv[]) {
 
     // Take the user-specified pcap file and turn it into a stack-stored vector
     std::string pcap_file = argv[1];
-    auto packets = PCAPServer::read_pcap(pcap_file);
-    std::cout << "Read pcap: " << packets.size() << std::endl;
+    std::thread pcap_read_thread(PCAPServer::read_pcap, pcap_file);
+
+    // auto packets = PCAPServer::read_pcap(pcap_file);
+    // std::cout << "Read pcap: " << packets.size() << std::endl;
 
     // Create the shared RingBuffer
     using RBType = RingBuffer<PacketSlot, 1024>;
@@ -33,8 +35,8 @@ int main(int argc, char* argv[]) {
     // Observer observer(ringBuffer);
     // std::thread observer_thread(&Observer::run, &observer);
 
-    // spawn a seperate thread to serve the pcap file in real-time to 127.0.0.1:5000
-    std::thread replay_thread(PCAPServer::serve_packets, packets);
+    // spawn threads to serve the pcap file in real-time to 127.0.0.1:5000
+    std::thread replay_thread(PCAPServer::serve_packets);
 
     // TODO: Implement Low-Latency packet capture and decision logic here
 
