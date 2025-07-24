@@ -2,7 +2,7 @@
 #include "PCAP_Server/Server.h"
 
 #include "Pkt_Observer/Ring_Buff_Forwader.h"
-// #include "Observer/Observer.hpp"
+#include "Pkt_Observer/Observer.h"
 #include "utils/RingBuffer.h"
 
 #include <thread>
@@ -32,8 +32,8 @@ int main(int argc, char* argv[]) {
     std::thread forwarder_thread(&PacketBufferForwarder::run, &forwarder);
 
     // Spawn the Observer to process packets from the RingBuffer
-    // Observer observer(ringBuffer);
-    // std::thread observer_thread(&Observer::run, &observer);
+    Observer observer(ringBuffer);
+    std::thread observer_thread(&Observer::run, &observer);
 
     // spawn threads to serve the pcap file in real-time to 127.0.0.1:5000
     std::thread replay_thread(PCAPServer::serve_packets);

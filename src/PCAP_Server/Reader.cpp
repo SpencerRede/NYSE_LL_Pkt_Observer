@@ -33,7 +33,6 @@ namespace PCAPServer {
             }
             curr_pkt = std::move(pkt);
 
-
             ready_to_read = false;
             ready_to_send = true;
             std::cout << "Read fin: ready_to_send=" << ready_to_send << ", done=" << done << "\n";

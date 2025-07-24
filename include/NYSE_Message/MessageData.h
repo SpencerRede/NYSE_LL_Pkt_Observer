@@ -121,5 +121,48 @@ namespace MessageData {
         char SessionState;            // 45
     };
 
+    // Msg Type 106 — Add Order
+    struct NYSEAddOrder {
+        uint16_t MsgSize;
+        uint16_t MsgType;        // = 106
+        uint32_t SourceTimeNS;
+        uint32_t SymbolIndex;
+        uint32_t OrderID;
+        uint32_t Price;
+        uint32_t Volume;
+        char Side;               // 'B' or 'S'
+    };
+
+    // Msg Type 107 — Replace Order
+    struct NYSEReplaceOrder {
+        uint16_t MsgSize;
+        uint16_t MsgType;        // = 107
+        uint32_t SourceTimeNS;
+        uint32_t SymbolIndex;
+        uint32_t OrderID;
+        uint32_t NewOrderID;
+        uint32_t NewPrice;
+        uint32_t NewVolume;
+    };
+
+    // Msg Type 108 — Delete Order
+    struct NYSEDeleteOrder {
+        uint16_t MsgSize;
+        uint16_t MsgType;        // = 108
+        uint32_t SourceTimeNS;
+        uint32_t SymbolIndex;
+        uint32_t OrderID;
+    };
+
+    // Msg Type 110 — Order Executed
+    struct NYSEExecuteOrder {
+        uint16_t MsgSize;
+        uint16_t MsgType;        // = 110
+        uint32_t SourceTimeNS;
+        uint32_t SymbolIndex;
+        uint32_t OrderID;
+        uint32_t ExecutedVolume;
+    };
+
     #pragma pack(pop)
 } // namespace PCAPServer
