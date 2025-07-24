@@ -24,7 +24,7 @@ PCAP_Server reads a `.pcap` file containing network packets (e.g., NYSE feed cap
 - Modular testing: enabling the replacement of the network feed with test producers to validate parsing and processing logic without requiring live or replayed network traffic.
 
 ## TODO:
-- Build Observer.cpp to static cast packets into cooresponding structs, collecting metrics and storing information in respective Symbol / Order Registry
+- Build Observer.cpp to reinterpret cast packets into cooresponding structs, collecting metrics and storing information in respective Symbol / Order Registry
 - Add logic for Add Order, Modify Order, Delete Order and Replace Order to build an order book
 
 - Create Symbol Registry to store metadata on each symbol, unordered_map indexed by null-terminated index symbol
